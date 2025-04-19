@@ -1,0 +1,155 @@
+.admin-dashboard {
+    padding: 2rem;
+    background: linear-gradient(to bottom, #f7f7f7, #e9e9e9);
+    min-height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    color: #333;
+  
+    max-width: 100%;         /* 💡 Allow full width */
+    box-sizing: border-box;
+  }
+  
+  
+  /* Header styles */
+  .admin-header {
+    text-align: left;
+    margin-bottom: 1rem;
+  }
+  
+  .admin-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin: 0;
+    color: #111;
+  }
+  
+  .admin-subtitle {
+    font-size: 1.1rem;
+    margin-top: 0.2rem;
+    color: #555;
+  }
+  
+  /* Controls bar */
+  .admin-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    margin-bottom: 2rem;
+  }
+  
+  /* Search input */
+  .admin-search {
+    padding: 0.6rem 1rem;
+    border-radius: 12px;
+    border: 1px solid rgb(110, 110, 110);
+    background-color: white;
+    color: rgb(0, 0, 0);
+    width: 250px;
+    font-size: 0.95rem;
+  }
+  
+  .admin-search:focus {
+    outline: none;
+    border: 1px solid #a567d1; /* 💡 purple border on focus */
+    box-shadow: 0 0 4px rgba(165, 103, 209, 0.3);
+  }
+
+  .admin-search::placeholder {
+    color: #aaa;
+  }
+  
+  /* Selects */
+  .admin-filter-type,
+  .admin-filter-value {
+    padding: 0.6rem 1rem;
+    border-radius: 12px;
+    border: none;
+    font-weight: 500;
+    background-color: white;
+    color: #333;
+    font-size: 0.95rem;
+    box-shadow: 0 0 0 1px #ccc;
+  }
+  
+  /* Filter button */
+  .admin-apply-filter {
+    padding: 0.65rem 1.5rem;
+    background-color: #ff924b;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .admin-apply-filter:hover {
+    background-color: #ff7a26;
+  }
+  
+  /* Logout */
+  .admin-logout {
+    float: right;
+    background-color: #d33;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: -3rem;
+  }
+  
+  .admin-logout:hover {
+    background-color: #b22;
+  }
+  
+  /* Table wrapper */
+  .admin-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    background-color: white;
+    border-radius: 20px;
+    padding: 1rem;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+  }
+  
+  .admin-user-table {
+    width: 100%;               /* 💡 Ensure table uses all space */
+    min-width: 1250px;         /* Optional: keeps it from being too narrow */
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+  
+  
+  .admin-user-table th,
+  .admin-user-table td {
+    text-align: left;
+    padding: 1rem 0.75rem;
+    color: #333;
+    white-space: nowrap;
+  }
+  
+  .admin-user-table thead {
+    background-color: #f2f2f2;
+  }
+  
+  .admin-user-table th {
+    font-weight: 600;
+    color: #222;
+  }
+  
+  .admin-user-table tr:nth-child(even) {
+    background-color: #fafafa;
+  }
+  
+  .admin-user-table tr:hover {
+    background-color: #d0c3dac1;
+  }
+  

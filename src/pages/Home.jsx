@@ -3,6 +3,7 @@ import { auth, db } from '../firebase';
 import { signOut } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import '../styles/Home.css'; // make sure this file is updated with new classnames
 
 export default function Home() {
   const navigate = useNavigate();
@@ -71,72 +72,97 @@ export default function Home() {
   };
 
   return (
-    <div>
-      <h1>Home Page</h1>
-      <button onClick={handleLogout}>Logout</button>
+    <div className="userform-page">
+      <button className="userform-logout-button" onClick={handleLogout}>Logout</button>
 
-      <h2>User Form</h2>
-      <form onSubmit={handleSubmit}>
-        <label>First Name</label><br />
-        <input name="firstName" value={form.firstName} onChange={handleChange} /><br />
+      <div className="userform-container">
+        <h1 className="userform-title">User Profile Form</h1>
 
-        <label>Last Name</label><br />
-        <input name="lastName" value={form.lastName} onChange={handleChange} /><br />
+        <form className="userform-form" onSubmit={handleSubmit}>
+          {/* First Name + Last Name */}
+          <div className="userform-row">
+            <div>
+              <label>First Name</label>
+              <input name="firstName" value={form.firstName} onChange={handleChange} />
+            </div>
+            <div>
+              <label>Last Name</label>
+              <input name="lastName" value={form.lastName} onChange={handleChange} />
+            </div>
+          </div>
 
-        <label>Sex</label><br />
-        <select name="sex" value={form.sex} onChange={handleChange}>
-          <option value="">Select Sex</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select><br />
+          {/* Sex + Age */}
+          <div className="userform-row">
+            <div>
+              <label>Sex</label>
+              <select name="sex" value={form.sex} onChange={handleChange}>
+                <option value="">Select Sex</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+            <div>
+              <label>Age</label>
+              <input name="age" type="number" value={form.age} onChange={handleChange} />
+            </div>
+          </div>
 
-        <label>Age</label><br />
-        <input name="age" type="number" value={form.age} onChange={handleChange} /><br />
+          {/* Batch Year + Course */}
+          <div className="userform-row">
+            <div>
+              <label>Batch Year</label>
+              <select name="batchYear" value={form.batchYear} onChange={handleChange}>
+                <option value="">Select Batch Year</option>
+                {Array.from({ length: new Date().getFullYear() - 1999 }, (_, i) => {
+                  const year = 2000 + i;
+                  return <option key={year} value={year}>{year}</option>;
+                })}
+              </select>
+            </div>
+            <div>
+              <label>Course</label>
+              <select name="course" value={form.course} onChange={handleChange}>
+                <option value="">Select Course</option>
+                <option value="BSCS">BSCS</option>
+                <option value="BSIT">BSIT</option>
+                <option value="BSP">BSP</option>
+                <option value="BSC">BSC</option>
+                <option value="BSE">BSE</option>
+              </select>
+            </div>
+          </div>
 
-        <label>Batch Year</label><br />
-        <select name="batchYear" value={form.batchYear} onChange={handleChange}>
-          <option value="">Select Batch Year</option>
-          {Array.from({ length: new Date().getFullYear() - 1999 }, (_, i) => {
-            const year = 2000 + i;
-            return <option key={year} value={year}>{year}</option>;
-          })}
-        </select><br />
+          {/* Employment Status */}
+          <label>Employment Status</label>
+          <select name="employmentStatus" value={form.employmentStatus} onChange={handleChange}>
+            <option value="">Employment Status</option>
+            <option value="employed">Employed</option>
+            <option value="unemployed">Unemployed</option>
+          </select>
 
-        <label>Course</label><br />
-        <select name="course" value={form.course} onChange={handleChange}>
-          <option value="">Select Course</option>
-          <option value="BSCS">BSCS</option>
-          <option value="BSIT">BSIT</option>
-          <option value="BSP">BSP</option>
-          <option value="BSC">BSC</option>
-          <option value="BSE">BSE</option>
-        </select><br />
+          {form.employmentStatus === 'employed' && (
+            <>
+              <label>Salary</label>
+              <input name="salary" value={form.salary} onChange={handleChange} />
+            </>
+          )}
 
-        <label>Employment Status</label><br />
-        <select name="employmentStatus" value={form.employmentStatus} onChange={handleChange}>
-          <option value="">Employment Status</option>
-          <option value="employed">Employed</option>
-          <option value="unemployed">Unemployed</option>
-        </select><br />
+          <label>Current Address</label>
+          <input name="address" value={form.address} onChange={handleChange} />
 
-        {form.employmentStatus === 'employed' && (
-          <>
-            <label>Salary</label><br />
-            <input name="salary" value={form.salary} onChange={handleChange} /><br />
-          </>
-        )}
+          <label>Phone Number</label>
+          <input name="phone" value={form.phone} onChange={handleChange} />
 
-        <label>Current Address</label><br />
-        <input name="address" value={form.address} onChange={handleChange} /><br />
+          <label>Contact Email</label>
+          <input name="contactEmail" value={form.contactEmail} onChange={handleChange} />
 
-        <label>Phone Number</label><br />
-        <input name="phone" value={form.phone} onChange={handleChange} /><br />
+          <button type="submit" className="userform-submit-button">
+            {isExisting ? 'Update' : 'Submit'}
+          </button>
+        </form>
 
-        <label>Contact Email</label><br />
-        <input name="contactEmail" value={form.contactEmail} onChange={handleChange} /><br />
-
-        <button type="submit">{isExisting ? 'Update' : 'Submit'}</button>
-      </form>
+        <p className="userform-note">Your information will be kept confidential and will only be used for research purposes.</p>
+      </div>
     </div>
   );
 }

@@ -1,0 +1,112 @@
+/* Full screen centered container */
+.register-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #e8e6ea;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Fade-in animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Purple card */
+.register-box {
+  background-color: #4f3b52;
+  padding: 2rem;
+  border-radius: 25px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Title */
+.register-title {
+  font-size: 2.4rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 1.5rem;
+}
+
+/* Input fields */
+.register-input {
+  width: 350px;                     /* ✅ Fixed width */
+  margin: 0 auto 1rem auto;         /* ✅ Centered horizontally */
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  background-color: #d6d6e0;
+  color: #2c2c2c;
+  box-shadow: 0 0 0 1px #ccc;
+}
+
+.register-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #a278b5;
+}
+
+/* Button */
+.register-button {
+  width: 150px;                     /* ✅ Matches input width */
+  margin: 0 auto;                   /* ✅ Centered */
+  padding: 0.75rem;
+  background-color: #ff924b;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.register-button:hover {
+  background-color: #ff7a26;
+}
+
+.register-label {
+  display: block;
+  text-align: left;
+  font-weight: 600;
+  color: #ddd;
+  margin-bottom: 0.3rem;
+  margin-left: 0;
+  width: 280px;                     /* ✅ Matches input width */
+  align-self: flex-start;
+}
+
+.register-login-link {
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  color: #ccc;
+  text-align: center;
+}
+
+.login-link {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}

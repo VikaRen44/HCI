@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { auth, db } from '../firebase';
 import { createUserWithEmailAndPassword, updatePassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; // ✅ Link added
+import '../styles/Register.css';
 
 export default function Register() {
   const [email, setEmail] = useState('');
@@ -12,12 +13,10 @@ export default function Register() {
   const navigate = useNavigate();
   const currentUser = auth.currentUser;
 
-  // ✅ Check if current user signed in with Google
   const isGoogleSignIn = currentUser?.providerData.some(
     (provider) => provider.providerId === 'google.com'
   );
 
-  // 📨 Auto-fill email if coming from Google sign-in
   useEffect(() => {
     if (isGoogleSignIn && currentUser) {
       setEmail(currentUser.email);
@@ -29,17 +28,16 @@ export default function Register() {
       alert('Please enter a username.');
       return;
     }
-  
+
     if (password !== confirmPassword) {
       alert('Passwords do not match.');
       return;
     }
-  
+
     try {
       if (isGoogleSignIn && currentUser) {
-        // Google user setting password
         await updatePassword(currentUser, password);
-  
+
         await setDoc(doc(db, 'accounts', currentUser.uid), {
           uid: currentUser.uid,
           email: currentUser.email,
@@ -47,14 +45,13 @@ export default function Register() {
           role: 'user',
           customPasswordSet: true
         });
-  
+
         alert('Google registration completed!');
         navigate('/');
       } else {
-        // Normal email/password registration
         const result = await createUserWithEmailAndPassword(auth, email, password);
         const user = result.user;
-  
+
         await setDoc(doc(db, 'accounts', user.uid), {
           uid: user.uid,
           email: user.email,
@@ -62,7 +59,7 @@ export default function Register() {
           role: 'user',
           customPasswordSet: true
         });
-  
+
         alert('Registration successful!');
         navigate('/');
       }
@@ -74,44 +71,62 @@ export default function Register() {
       }
     }
   };
-  
 
   return (
-    <div>
-      <h2>{isGoogleSignIn ? 'Complete Google Registration' : 'Register'}</h2>
+    <div className="register-wrapper">
+      <div className="register-box">
+        <h2 className="register-title">
+          {isGoogleSignIn ? 'Complete Google Registration' : 'Register'}
+        </h2>
 
-      <input
-        type="text"
-        placeholder="Username"
-        onChange={(e) => setUsername(e.target.value)}
-      /><br />
+        {/* ✅ Labels + Inputs */}
+        <label className="register-label">Username</label>
+        <input
+          className="register-input"
+          type="text"
+          placeholder="Username"
+          onChange={(e) => setUsername(e.target.value)}
+        />
 
-      {/* ✅ Show email input ONLY if not signed in with Google */}
-      {!isGoogleSignIn && (
-        <>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          /><br />
-        </>
-      )}
+        {!isGoogleSignIn && (
+          <>
+            <label className="register-label">Email</label>
+            <input
+              className="register-input"
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </>
+        )}
 
-      <input
-        type="password"
-        placeholder="Password"
-        onChange={(e) => setPassword(e.target.value)}
-      /><br />
-      <input
-        type="password"
-        placeholder="Confirm Password"
-        onChange={(e) => setConfirmPassword(e.target.value)}
-      /><br />
+        <label className="register-label">Password</label>
+        <input
+          className="register-input"
+          type="password"
+          placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
-      <button onClick={handleRegister}>
-        {isGoogleSignIn ? 'Set Password' : 'Sign Up'}
-      </button>
+        <label className="register-label">Confirm Password</label>
+        <input
+          className="register-input"
+          type="password"
+          placeholder="Confirm Password"
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+
+        <button className="register-button" onClick={handleRegister}>
+          {isGoogleSignIn ? 'Set Password' : 'Register'}
+        </button>
+
+        {/* ✅ Link to Login */}
+        <p className="register-login-link">
+          Already have an account? <Link className="login-link" to="/login">Login here</Link>
+        </p>
+      </div>
     </div>
   );
 }
+

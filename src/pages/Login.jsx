@@ -7,6 +7,7 @@ import {
   sendEmailVerification,
 } from 'firebase/auth';
 import { useNavigate, Link } from 'react-router-dom';
+import '../styles/Login.css';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -48,7 +49,6 @@ export default function Login() {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      // Optional: Send verification email
       if (!user.emailVerified) {
         await sendEmailVerification(user);
         alert('Verification email sent. Please check your inbox.');
@@ -60,7 +60,6 @@ export default function Login() {
       if (userSnap.exists()) {
         const data = userSnap.data();
 
-        // ✅ Check if admin or normal user
         if (data.role === 'admin') {
           navigate('/admin');
         } else {
@@ -68,7 +67,6 @@ export default function Login() {
         }
 
       } else {
-        // ❌ New Google account → store defaults and go to registration
         await setDoc(userRef, {
           uid: user.uid,
           email: user.email,
@@ -87,24 +85,42 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <input
-        type="email"
-        placeholder="Email"
-        onChange={(e) => setEmail(e.target.value)}
-      /><br />
-      <input
-        type="password"
-        placeholder="Password"
-        onChange={(e) => setPassword(e.target.value)}
-      /><br />
-      <button onClick={handleEmailLogin}>Login with Email</button>
-      <hr />
-      <button onClick={handleGoogleLogin}>Sign in with Google</button>
-      <p>
-        Don't have an account? <Link to="/register">Register here</Link>
-      </p>
+    <div className="login-wrapper">
+      <div className="login-box">
+        <h2 className="login-title">Login</h2>
+
+        {/* ✅ Email Label + Input */}
+        <label className="login-email-label">Email</label>
+        <input
+          className="login-input login-email"
+          type="email"
+          placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        {/* ✅ Password Label + Input */}
+        <label className="login-password-label">Password</label>
+        <input
+          className="login-input login-password"
+          type="password"
+          placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+
+        <button className="login-button email-login-button" onClick={handleEmailLogin}>
+          Login with Email
+        </button>
+
+        <hr className="login-divider" />
+
+        <button className="login-button google-login-button" onClick={handleGoogleLogin}>
+          Sign in with Google
+        </button>
+
+        <p className="login-register-link">
+          Don't have an account? <Link className="register-link" to="/register">Register here</Link>
+        </p>
+      </div>
     </div>
   );
 }

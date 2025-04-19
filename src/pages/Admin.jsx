@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { db, auth } from '../firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import '../styles/Admin.css';
 
 export default function AdminDashboard() {
   const [users, setUsers] = useState([]);
@@ -9,9 +10,8 @@ export default function AdminDashboard() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState('');
   const [filterValue, setFilterValue] = useState('');
-  const navigate = useNavigate();
-
   const [filterOptions, setFilterOptions] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -45,13 +45,13 @@ export default function AdminDashboard() {
   const handleFilterTypeChange = (e) => {
     const selectedType = e.target.value;
     setFilterType(selectedType);
-    setFilterValue(''); // reset value
+    setFilterValue('');
 
-    // Dynamically generate unique values for the selected filter type
     const uniqueValues = [
-      ...new Set(users.map((user) => user[selectedType]?.toString()))
-    ];
-    setFilterOptions(uniqueValues.filter((v) => v)); // remove empty/null values
+      ...new Set(users.map((user) => user[selectedType]))
+    ].filter(Boolean);
+
+    setFilterOptions(uniqueValues);
   };
 
   const handleFilter = () => {
@@ -68,95 +68,87 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div>
-      <h1>Admin Dashboard</h1>
-      <button onClick={handleLogout}>Logout</button>
+    <div className="admin-dashboard">
+      <div className="admin-header">
+        <div className="admin-header-left">
+          <h1 className="admin-title">Dashboard</h1>
+          <p className="admin-subtitle">Registered User Details</p>
+        </div>
+        <button className="admin-logout" onClick={handleLogout}>Logout</button>
+      </div>
 
-      <h2>Registered User Details</h2>
+      <div className="admin-controls">
+        <input
+          className="admin-search"
+          type="text"
+          placeholder="Search by name..."
+          value={searchTerm}
+          onChange={handleSearch}
+        />
 
-      {/* 🔍 Search */}
-      <input
-        type="text"
-        placeholder="Search by name..."
-        value={searchTerm}
-        onChange={handleSearch}
-      />
-
-      {/* 🔽 Filter Controls */}
-        <div style={{ marginTop: '10px' }}>
-        <select onChange={(e) => setFilterType(e.target.value)} defaultValue="">
-            <option value="" disabled>Select Filter</option>
-            <option value="batchYear">Batch Year</option>
-            <option value="course">Course</option>
-            <option value="employmentStatus">Employment Status</option>
+        <select
+          className="admin-filter-type"
+          value={filterType}
+          onChange={handleFilterTypeChange}
+        >
+          <option value="" disabled>Select Filter</option>
+          <option value="batchYear">Batch Year</option>
+          <option value="course">Course</option>
+          <option value="employmentStatus">Employment Status</option>
         </select>
 
-        {/* Show corresponding dropdown based on selected filter */}
-        {filterType === 'batchYear' && (
-            <select value={filterValue} onChange={(e) => setFilterValue(e.target.value)}>
-            <option value="">Select Year</option>
-            {Array.from({ length: new Date().getFullYear() - 1999 }, (_, i) => {
-                const year = 2000 + i;
-                return <option key={year} value={year}>{year}</option>;
-            })}
-            </select>
+        {filterType && (
+          <select
+            className="admin-filter-value"
+            value={filterValue}
+            onChange={(e) => setFilterValue(e.target.value)}
+          >
+            <option value="">Select {filterType}</option>
+            {filterOptions.map((value, idx) => (
+              <option key={idx} value={value}>{value}</option>
+            ))}
+          </select>
         )}
 
-        {filterType === 'course' && (
-            <select value={filterValue} onChange={(e) => setFilterValue(e.target.value)}>
-            <option value="">Select Course</option>
-            <option value="BSCS">BSCS</option>
-            <option value="BSIT">BSIT</option>
-            <option value="BSP">BSP</option>
-            <option value="BSC">BSC</option>
-            <option value="BSE">BSE</option>
-            </select>
-        )}
+        <button className="admin-apply-filter" onClick={handleFilter}>
+          Apply Filter
+        </button>
+      </div>
 
-        {filterType === 'employmentStatus' && (
-            <select value={filterValue} onChange={(e) => setFilterValue(e.target.value)}>
-            <option value="">Select Status</option>
-            <option value="employed">Employed</option>
-            <option value="unemployed">Unemployed</option>
-            </select>
-        )}
-
-        <button onClick={handleFilter}>Apply Filter</button>
-        </div>
-
-      {/* 🧾 Table */}
-      <table border="1" cellPadding="8" style={{ marginTop: '15px' }}>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Sex</th>
-            <th>Age</th>
-            <th>Batch Year</th>
-            <th>Course</th>
-            <th>Employment</th>
-            <th>Salary</th>
-            <th>Address</th>
-            <th>Phone</th>
-            <th>Email</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredUsers.map((user, index) => (
-            <tr key={index}>
-              <td>{user.firstName} {user.lastName}</td>
-              <td>{user.sex}</td>
-              <td>{user.age}</td>
-              <td>{user.batchYear}</td>
-              <td>{user.course}</td>
-              <td>{user.employmentStatus}</td>
-              <td>{user.salary || '-'}</td>
-              <td>{user.address}</td>
-              <td>{user.phone}</td>
-              <td>{user.contactEmail}</td>
+      <div className="admin-table-wrapper">
+        <table className="admin-user-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Sex</th>
+              <th>Age</th>
+              <th>Batch</th>
+              <th>Course</th>
+              <th>Employment</th>
+              <th>Salary</th>
+              <th>Address</th>
+              <th>Phone</th>
+              <th>Email</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {filteredUsers.map((user, index) => (
+              <tr key={index}>
+                <td>{user.firstName} {user.lastName}</td>
+                <td>{user.sex}</td>
+                <td>{user.age}</td>
+                <td>{user.batchYear}</td>
+                <td>{user.course}</td>
+                <td>{user.employmentStatus}</td>
+                <td>{user.salary || '-'}</td>
+                <td>{user.address}</td>
+                <td>{user.phone}</td>
+                <td>{user.contactEmail}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

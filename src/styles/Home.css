@@ -1,0 +1,116 @@
+/* Page wrapper: take full screen */
+.userform-page {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom right, #fff4f1, #f5e6f9);
+    overflow: hidden; /* 🚫 prevent scroll unless screen is too small */
+    box-sizing: border-box;
+    position: relative;
+  }
+  
+  /* Logout button stays at top right */
+  .userform-logout-button {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    background-color: #d33;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 10;
+  }
+  
+  /* Limit height of container to fit screen */
+  .userform-container {
+    width: 100%;
+    max-width: 700px; /* 💡 wider form */
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 2rem;
+    background-color: #ffe2cc;
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+  }
+  
+  
+  /* Inside container remains scrollable if needed */
+  .userform-container::-webkit-scrollbar {
+    width: 8px;
+  }
+  .userform-container::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+  }
+  
+  /* The rest stays the same */
+  .userform-title {
+    text-align: center;
+    color: #d25c16;
+    margin-bottom: 1.5rem;
+  }
+  
+  .userform-note {
+    font-size: 0.85rem;
+    text-align: center;
+    margin-top: 2rem;
+    color: #444;
+  }
+  
+  .userform-form label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .userform-form input,
+  .userform-form select {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    border: 2px solid #ccc;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+    margin-top: 0.3rem;
+    background-color: #fff;
+    color: #000;
+  }
+  
+  .userform-form input:focus,
+  .userform-form select:focus {
+    outline: none;
+    border: 2px solid #a567d1;
+  }
+  
+  .userform-submit-button {
+    margin-top: 2rem;
+    float: right;
+    background-color: #6a1caa;
+    color: white;
+    padding: 0.7rem 2rem;
+    border: none;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .userform-submit-button:hover {
+    background-color: #541488;
+  }
+
+  .userform-row {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .userform-row > div {
+    flex: 1;
+  }
+  
