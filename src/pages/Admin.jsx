@@ -3,6 +3,7 @@ import { db, auth } from '../firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Admin.css';
+import logo from '../assets/lsb logo blck.png';
 
 export default function AdminDashboard() {
   const [users, setUsers] = useState([]);
@@ -69,6 +70,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="admin-dashboard">
+      <img src={logo} alt="Logo" className="admin-logo" />
       <div className="admin-header">
         <div className="admin-header-left">
           <h1 className="admin-title">Dashboard</h1>

@@ -4,6 +4,8 @@ import { createUserWithEmailAndPassword, updatePassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { useNavigate, Link } from 'react-router-dom'; // ✅ Link added
 import '../styles/Register.css';
+import logo from '../assets/mylsb_logo.png';
+
 
 export default function Register() {
   const [email, setEmail] = useState('');
@@ -75,8 +77,9 @@ export default function Register() {
   return (
     <div className="register-wrapper">
       <div className="register-box">
+        <img src={logo} alt="Logo" className="register-logo" />
         <h2 className="register-title">
-          {isGoogleSignIn ? 'Complete Google Registration' : 'Register'}
+          {isGoogleSignIn ? 'Complete Google Registration' : 'Sign up'}
         </h2>
 
         {/* ✅ Labels + Inputs */}
@@ -118,7 +121,7 @@ export default function Register() {
         />
 
         <button className="register-button" onClick={handleRegister}>
-          {isGoogleSignIn ? 'Set Password' : 'Register'}
+          {isGoogleSignIn ? 'Set Password' : 'Sign up'}
         </button>
 
         {/* ✅ Link to Login */}

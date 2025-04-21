@@ -4,6 +4,8 @@ import { signOut } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Home.css'; // make sure this file is updated with new classnames
+import logo from '../assets/lsb logo blck.png';
+
 
 export default function Home() {
   const navigate = useNavigate();
@@ -76,6 +78,7 @@ export default function Home() {
       <button className="userform-logout-button" onClick={handleLogout}>Logout</button>
 
       <div className="userform-container">
+        <img src={logo} alt="Logo" className="home-logo" />
         <h1 className="userform-title">User Profile Form</h1>
 
         <form className="userform-form" onSubmit={handleSubmit}>
@@ -125,9 +128,24 @@ export default function Home() {
                 <option value="">Select Course</option>
                 <option value="BSCS">BSCS</option>
                 <option value="BSIT">BSIT</option>
-                <option value="BSP">BSP</option>
-                <option value="BSC">BSC</option>
-                <option value="BSE">BSE</option>
+                <option value="BSE">BSA</option>
+                <option value="BSBA">BSBA</option>
+                <option value="BSCA">BSCA</option>
+                <option value="BSCOE">BSCOE</option>
+                <option value="BSEE">BSEE</option>
+                <option value="BSECE">BSECE</option>
+                <option value="BSIE">BSIE</option>
+                <option value="BSHRM">BSHRM</option>
+                <option value="BSTRM">BSTRM</option>
+                <option value="BSCRIM">BSCRIM</option>
+                <option value="BSPSY">BSPSY</option>
+                <option value="ACT">ACT</option>
+                <option value="TESDA THRO">TESDA THRO</option>
+                <option value="TESDA Caregiving">TESDA Caregiving</option>
+                <option value="TESDA Health Care Services">TESDA Health Care Services</option>
+                <option value="HUMSSS">HUMSSS</option>
+                <option value="ABM">ABM</option>
+                <option value="STEM">STEM</option>
               </select>
             </div>
           </div>

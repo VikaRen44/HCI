@@ -1,3 +1,11 @@
+
+.home-logo {
+  width: 150px;
+  height: auto;
+  margin: 0 auto 0px;
+  display: block;
+}
+
 /* Page wrapper: take full screen */
 .userform-page {
     height: 100vh;
@@ -34,7 +42,7 @@
     padding: 2rem;
     background-color: #ffe2cc;
     border-radius: 20px;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
     box-sizing: border-box;
   }
   
@@ -51,7 +59,7 @@
   /* The rest stays the same */
   .userform-title {
     text-align: center;
-    color: #d25c16;
+    color: #541488;
     margin-bottom: 1.5rem;
   }
   
@@ -91,9 +99,9 @@
   .userform-submit-button {
     margin-top: 2rem;
     float: right;
-    background-color: #6a1caa;
+    background-color: #fb772a;
     color: white;
-    padding: 0.7rem 2rem;
+    padding: 0.7rem 3rem;
     border: none;
     border-radius: 20px;
     font-weight: bold;
@@ -101,7 +109,7 @@
   }
   
   .userform-submit-button:hover {
-    background-color: #541488;
+    background-color: #ff5f00;
   }
 
   .userform-row {

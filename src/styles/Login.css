@@ -1,3 +1,9 @@
+.login-logo {
+  width: 200px;
+  height: auto;
+  margin: 0 auto 0px;
+  display: block;
+}
 
 /* ⬛ Container that fills the screen */
 .login-wrapper {
@@ -31,7 +37,7 @@
     background-color: #4f3b52;
     padding: 2rem;
     border-radius: 25px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     width: 100%;
     max-width: 360px;
     display: flex;
@@ -41,8 +47,6 @@
     /* 🎬 Animation added here */
     animation: fadeInUp 0.6s ease-out;
   }
-  
-  
   
   /* 📄 Title inside the card */
   .login-title {

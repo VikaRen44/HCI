@@ -1,3 +1,10 @@
+.register-logo {
+  width: 200px;
+  height: auto;
+  margin: 0 auto 0px;
+  display: block;
+}
+
 /* Full screen centered container */
 .register-wrapper {
   position: fixed;
@@ -31,7 +38,7 @@
   border-radius: 25px;
   width: 100%;
   max-width: 400px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
   align-items: center;
